@@ -1,0 +1,294 @@
+:root{
+    --red-christmas: rgba(253, 0, 89, 0.47);   /* Rojo Navidad */
+    --green-pine: rgb(11, 102, 35);        /* Verde Pino */
+    --gold-bright: rgb(255, 215, 0);     /* Blanco Nieve */
+    --dark-red: rgb(139, 0, 0);            /* Cereza Oscuro */
+    --moss-green: rgb(85, 107, 47);        /* Verde Musgo */
+    --dark-slate-gray: rgb(18, 65, 22);
+    --olive: rgb(152, 180, 62);
+    --cal-poly-green: rgb(22, 75, 22);
+    --satin-sheen-gold: rgb(203, 167, 36);
+}
+
+body {
+    background-image: url(images/fondo.png);
+    background-size: cover; /* Asegura que el fondo cubra todo el área */
+    color: var(--white);
+    
+    /* Configuración de Flexbox para centrar contenido */
+    display: flex;
+    justify-content: center;  /* Centra horizontalmente */
+    align-items: center;  
+    text-align: center;
+    flex-direction: column;   /* Alinea los elementos en una columna */
+    
+    /* Eliminar márgenes y relleno innecesarios */
+    margin: 0;
+    padding: 0;
+    
+    /* Ajustar el espaciado si es necesario */
+    height: 100vh;  /* Asegura que el body ocupe toda la altura de la ventana */
+}
+
+h2{
+    font-family: "Corinthia", cursive;
+    font-size: 100px;
+    padding: 5px;
+    margin-bottom: 0;
+    background: linear-gradient(90deg, #f5d34c, #d0a90c, #ceaa1a, #e1c84b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Hace el texto transparente para aplicar el gradiente */
+    text-shadow: 
+        10px 10px 10px rgba(0, 0, 0, 0.32), /* Sombra suave */
+        0px 0px 0px rgba(196, 187, 17, 0.502); /* Brillo dorado */
+    margin: 0;
+
+}
+
+.subtitulo{
+    font-family: "Cormorant Garamond", serif;
+    font-size: 25px;
+    margin-top:0;
+    padding: 0px;
+    color: var(--white-snow);
+    line-height: 30px; /* interlineado */
+    text-shadow: 
+        0px 0px 2px rgba(248, 230, 230, 0.813);
+}
+
+
+.calendar-container{
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 17px;
+    padding: 0;
+    list-style: none;
+    max-width: 1000px;
+}
+
+.calendar-box{
+    background-color: var(--cal-poly-green);
+    color: var(--satin-sheen-gold);
+    padding: 2px;
+    border: 1px solid var(--olive);
+    border-radius: 10px;
+    position: relative;
+    align-content: end;
+
+    block-size: 60px;
+    max-width: 4000px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.813);
+    text-align: center;
+
+    height: 75px;
+
+}
+
+.calendar-box p{
+    font-family: "Cormorant Garamond", serif;
+}
+
+/* grid en calendar-box para el moño? */
+.calendar-box{
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    cursor: pointer;
+}
+
+.calendar-number{
+    color: var(--gold-bright);
+    font-size: 30px;
+    
+    font-weight: bold;
+    padding: 15px;
+
+    grid-column-start: 9;
+
+    /* color */
+    background: linear-gradient(90deg, #ffcc00, #ffdb4d, #e6b800, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Hace el texto transparente para aplicar el gradiente */
+    text-shadow: 
+        1px 1px 10px rgba(0, 0, 0, 0.2);
+    margin: 0;
+
+}
+
+.calendar-button{
+    background: none;
+    border: none;    
+    position: absolute;
+    inset-block-start: 10px;
+    inset-inline-start: 0;
+    color: var(--olive);
+}
+
+/* Lazos */
+
+.calendar-box::before, 
+.calendar-box::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(90deg, #a3850d, #ffdb4d, #caa306, #ffd700); /* Color de las líneas */
+    z-index: 0; /* Asegura que estén detrás del moño */
+}
+
+.calendar-box::before {
+    width: 100%; /* Línea horizontal */
+    height: 8px; /* Grosor */
+    top: 25%; /* Posición centrada verticalmente */
+    left: 0;
+    transform: translateY(0%);
+}
+
+.calendar-box::after {
+    width: 8px; /* Línea vertical */
+    height: calc(100%); /* Altura extendida hacia abajo */
+    top: 0;
+    left: 33%; /* Posición centrada horizontalmente */
+    transform: translateX(-50%);
+}
+
+/* pop up */
+.pop-up{
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 400px;
+    background: var(--dark-slate-gray);
+    border: 3px solid var(--satin-sheen-gold);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: none;
+    z-index: 100;
+    align-items: center;
+    overflow: clip;    
+    padding: 0;
+    border-radius: 20px;
+}
+
+
+.pop-up p{
+    font-size: 50px;
+    color: var(--gold-bright);
+    font-weight: bold;
+    background: linear-gradient(90deg, #ffcc00, #ffdb4d, #e6b800, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
+.pop-up.active {
+    display: block;
+}
+
+.regalo{
+    width: 200px;
+}
+
+/* moño */
+.moño{
+    width: 55px;
+    padding-block: 5px;
+    margin-block: 0;
+    position:absolute;
+    
+    z-index: 2;
+
+    grid-column-start: 1;
+}
+
+.calendar-box .moño:nth-child(5n){
+    grid-column-start: 4;
+}
+
+/* nth childs */
+.calendar-box:nth-child(5n) {
+    grid-column: span 2;
+}
+
+/* arreglo moño */
+.calendar-box:nth-child(5n) .moño{
+    grid-column-start: 2;
+}
+
+.calendar-box:nth-child(24n) .moño{
+    grid-column-start: 2;
+    width: 90px;
+}
+
+/* colores de caja */
+.calendar-box:nth-child(2n) {
+    background: linear-gradient(90deg, #a30d0d, #f31e1e, #ca0606, #ff0000);
+}
+
+.calendar-box:nth-child(5n) {
+    background: linear-gradient(90deg, #a3850d, #ffdb4d, #caa306, #ffd700);
+}
+
+.calendar-box:nth-child(24n) {
+    background-color: var(--red-christmas);
+    grid-column: span 5;
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+
+/* color de número */
+
+.calendar-box:nth-child(5n) .calendar-number{
+    color: var(--cal-poly-green);
+    background: linear-gradient(90deg, #1b4111, #186e22, #0f4402);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
+
+/* lazos */
+.calendar-box:nth-child(5n).calendar-box::before {
+    background: linear-gradient(90deg, #0da310, #046f0b, #06ca09, #0dc910);
+    
+}
+
+.calendar-box:nth-child(5n).calendar-box::after {
+    background: linear-gradient(90deg, #0da310, #046f0b, #06ca09, #00ff6e);
+    left: 23%;
+}
+
+.calendar-box:nth-child(24n).calendar-box::after {
+    left: 25%;
+}
+
+/* /* responsive 
+@media (max-width:800px){
+
+    .calendar-container{
+        margin: auto;
+        padding: 10px;
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 700px;
+        gap: 10px; /* Espaciado entre cajas */
+        /* position: relative;
+
+        > :nth-child(n){
+            grid-column: 1;
+        }
+
+        .moño{
+            grid-column-start: 2;
+            width: 80px;
+        }
+        
+    } */
+/* 
+    .calendar-box{
+        width: 500px;
+    }
+
+    .calendar-box::after{
+        left: 100px;
+    }
+
+    .pantalla{
+        padding: 80px;
+    }
+
+} */ 
